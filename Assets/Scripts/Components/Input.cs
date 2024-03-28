@@ -6,5 +6,6 @@ namespace Unity.Entities.Racing.Common
     {
         public float Horizontal;
         public float Vertical;
+        public InputEvent Powerup;
     }
 }

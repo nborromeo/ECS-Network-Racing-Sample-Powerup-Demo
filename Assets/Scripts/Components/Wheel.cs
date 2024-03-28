@@ -18,7 +18,7 @@ namespace Unity.Entities.Racing.Common
         public float MaxDriveTorque;
         public Entity VisualMesh;
         public float RotationAngle;
-        public float GripFactor;
+        [GhostField(Quantization = 10000)] public float GripFactor;
         [GhostField(Quantization = 10000)] public float SteeringAngle;
         [GhostField(Quantization = 10000)] public float DriveForce;
         [GhostField(Quantization = 10000)] public float SidewaysForce;

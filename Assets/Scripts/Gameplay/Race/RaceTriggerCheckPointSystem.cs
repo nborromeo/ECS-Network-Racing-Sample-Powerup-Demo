@@ -45,15 +45,16 @@ namespace Unity.Entities.Racing.Gameplay
             var triggerEntity = isBodyATrigger ? entityA : entityB;
             var dynamicEntity = isBodyATrigger ? entityB : entityA;
 
-            // Update Lap Progress
-            var triggerCheckPoint = CheckPointLookup[triggerEntity];
-            var lapProgress = LapProgressLookup.GetRefRW(dynamicEntity);
-            var currentCheckPointId = triggerCheckPoint.Id;
-
-            if (lapProgress.ValueRO.NextPointId == currentCheckPointId)
+            if (CheckPointLookup.TryGetComponent(triggerEntity, out var triggerCheckPoint))
             {
-                lapProgress.ValueRW.CurrentCheckPoint = currentCheckPointId;
-                lapProgress.ValueRW.LastCheckPointPosition = LocalTransformLookup[dynamicEntity].Position;
+                var lapProgress = LapProgressLookup.GetRefRW(dynamicEntity);
+                var currentCheckPointId = triggerCheckPoint.Id;
+
+                if (lapProgress.ValueRO.NextPointId == currentCheckPointId)
+                {
+                    lapProgress.ValueRW.CurrentCheckPoint = currentCheckPointId;
+                    lapProgress.ValueRW.LastCheckPointPosition = LocalTransformLookup[dynamicEntity].Position;
+                }
             }
         }
     }

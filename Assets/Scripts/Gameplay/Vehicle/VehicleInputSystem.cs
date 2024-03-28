@@ -59,8 +59,7 @@ namespace Unity.Entities.Racing.Gameplay
                     continue;
                 }
 
-                input.ValueRW.Horizontal = default;
-                input.ValueRW.Vertical = default;
+                input.ValueRW = default;
 
                 // TODO: Since DOTS still does not yet support the new Unity input system, we have different axes for the Gamepad
                 var horizontal = Input.GetAxis("Horizontal");
@@ -71,6 +70,8 @@ namespace Unity.Entities.Racing.Gameplay
                 vertical += Input.GetAxis("DriveTriggers");
                 vertical += Input.GetAxis("LeftStickY");
                 vertical += Input.GetAxis("DPadY");
+
+                var fire = Input.GetButtonDown("Fire1");
                 
                 if (UIMobileInput.Instance != null)
                 {
@@ -83,6 +84,9 @@ namespace Unity.Entities.Racing.Gameplay
 
                 input.ValueRW.Horizontal = horizontal;
                 input.ValueRW.Vertical = vertical;
+                
+                if(fire)
+                    input.ValueRW.Powerup.Set();
             }
         }
     }
